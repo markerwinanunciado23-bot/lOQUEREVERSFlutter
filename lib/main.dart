@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomeScreen());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
+    );
   }
 }
 
@@ -51,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Fetch API with ListView')),
+      appBar: AppBar(title: const Text('Fetch API with Delete Option')),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
@@ -62,6 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 return ListTile(
                   title: Text(dataList[index]['name']),
                   subtitle: Text(dataList[index]['email']),
+                  // Added trailing trash icon button to delete the specific item
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      setState(() {
+                        dataList.removeAt(index); // Removes item from the list
+                      });
+                    },
+                  ),
                 );
               },
             ),
